@@ -1,0 +1,371 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f4f7;
+    color: #222;
+}
+
+header {
+    background: #1d3557;
+    color: white;
+    text-align: center;
+    padding: 25px 15px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+header p {
+    margin-bottom: 0;
+}
+
+main {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+}
+
+#busca {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+#busca:focus {
+    border-color: #1d3557;
+}
+
+.localizacao {
+    width: 100%;
+    margin-top: 10px;
+    background: #2a9d8f;
+    color: white;
+    font-weight: bold;
+}
+
+.localizacao:hover {
+    background: #238b7e;
+}
+
+.mensagem-localizacao {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    min-height: 20px;
+    margin: 8px 0;
+}
+
+.botoes {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.botoes button {
+    flex: 1;
+    background: white;
+    border: 1px solid #ccc;
+}
+
+.botoes button:hover {
+    background: #e9eef5;
+}
+
+.mapa {
+    margin-top: 20px;
+}
+
+.mapa h2 {
+    margin-bottom: 10px;
+}
+
+#mapa-real {
+    width: 100%;
+    height: 320px;
+    border: 2px solid #bbb;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.ordem-info {
+    background: #e9eef5;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #555;
+}
+
+.local {
+    background: white;
+    padding: 18px;
+    margin: 12px 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.local h3 {
+    margin-top: 0;
+}
+
+.local p {
+    margin: 10px 0;
+}
+
+.local small {
+    display: block;
+    margin-top: 10px;
+    color: #555;
+}
+
+.precos {
+    margin-top: 10px;
+}
+
+.precos p {
+    margin: 7px 0;
+}
+
+.precos strong {
+    color: #1d3557;
+}
+
+.resumo-avaliacao {
+    background: #f7f9fc;
+    border: 1px solid #dce2ea;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 15px;
+}
+
+.resumo-avaliacao h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #1d3557;
+}
+
+.resumo-avaliacao p {
+    margin: 7px 0;
+    font-size: 14px;
+}
+
+.comentario-usuario {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    font-style: italic;
+    color: #555;
+}
+
+.ver-mapa {
+    width: 100%;
+    margin-top: 15px;
+    background: #e9eef5;
+    color: #1d3557;
+    border: 1px solid #ccd4df;
+}
+
+.avaliar {
+    width: 100%;
+    margin-top: 8px;
+    background: #fff4cc;
+    color: #765800;
+    border: 1px solid #e5d18a;
+}
+
+.atualizar {
+    width: 100%;
+    margin-top: 15px;
+    background: #1d3557;
+    color: white;
+}
+
+.formulario {
+    display: none;
+    background: white;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.formulario h2 {
+    margin-top: 0;
+}
+
+.formulario label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.formulario input,
+.formulario select,
+.formulario textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.formulario textarea {
+    min-height: 100px;
+    resize: vertical;
+    font-family: Arial, sans-serif;
+}
+
+.formulario button {
+    margin-top: 15px;
+    background: #1d3557;
+    color: white;
+}
+
+.formulario .cancelar {
+    background: #777;
+}
+
+#mensagem,
+#mensagemAvaliacao {
+    font-weight: bold;
+}
+
+.avaliacao-form {
+    border-top: 5px solid #f2c94c;
+}
+
+.avaliacao-form h3 {
+    color: #1d3557;
+    margin-bottom: 15px;
+}
+
+.maplibregl-popup-content {
+    border-radius: 10px;
+    padding: 14px;
+    font-family: Arial, sans-serif;
+}
+
+.maplibregl-popup-content strong {
+    font-size: 16px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+@media (max-width: 600px) {
+
+    .botoes {
+        flex-direction: column;
+    }
+
+    #mapa-real {
+        height: 280px;
+    }
+/* =====================================================
+   MELHORIA VISUAL DOS CARTÕES REAIS
+   ===================================================== */
+
+.card-real {
+    border: 1px solid #d9e0e8;
+    border-radius: 16px;
+    padding: 20px;
+    margin: 16px 0;
+    background: #ffffff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+}
+
+.card-real h3 {
+    margin-top: 0;
+    margin-bottom: 14px;
+    color: #1d3557;
+    font-size: 21px;
+}
+
+.card-real > p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.card-real .precos {
+    background: #f5f8fc;
+    border: 1px solid #dce4ed;
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-top: 14px;
+}
+
+.card-real .precos p {
+    margin: 9px 0;
+}
+
+.card-real .precos strong {
+    color: #1d3557;
+    font-size: 16px;
+}
+
+.card-real small {
+    display: block;
+    margin-top: 12px;
+    color: #666;
+}
+
+.card-real button {
+    transition: 0.2s;
+}
+
+.card-real .ver-mapa {
+    margin-top: 16px;
+    background: #e9eef5;
+    color: #1d3557;
+    border: 1px solid #ccd6e2;
+}
+
+.card-real .ver-mapa:hover {
+    background: #dce5f0;
+}
+
+.card-real .avaliar {
+    margin-top: 9px;
+    background: #fff4cc;
+    color: #765800;
+    border: 1px solid #e5d18a;
+}
+
+.card-real .avaliar:hover {
+    background: #ffedaa;
+}
+
+.card-real .atualizar {
+    margin-top: 9px;
+    background: #1d3557;
+    color: white;
+    border: 1px solid #1d3557;
+}
+
+.card-real .atualizar:hover {
+    background: #294b78;
+}
+}12:44 02/10/2026

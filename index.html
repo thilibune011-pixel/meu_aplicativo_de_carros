@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>G4 Auto Car</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <link
+        href="https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.css"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+<header>
+
+    <h1>🚗 G4 Auto Car</h1>
+
+    <p>
+        Encontre postos e pontos de recarga próximos
+    </p>
+
+</header>
+
+
+<main>
+
+    <!-- BUSCA -->
+
+    <input
+        type="text"
+        id="busca"
+        placeholder="🔎 Buscar posto ou endereço..."
+        oninput="buscarLocais()"
+    >
+
+
+    <!-- LOCALIZAÇÃO -->
+
+    <button
+        class="localizacao"
+        onclick="usarMinhaLocalizacao()"
+    >
+        📍 Usar minha localização
+    </button>
+
+
+    <p
+        id="mensagemLocalizacao"
+        class="mensagem-localizacao"
+    >
+        Clique no botão para encontrar sua localização.
+    </p>
+
+
+    <!-- FILTROS -->
+
+    <div class="botoes">
+
+        <button onclick="mostrarCombustiveis()">
+            ⛽ Combustíveis
+        </button>
+
+        <button onclick="mostrarRecargas()">
+            ⚡ Recarga elétrica
+        </button>
+
+        <button onclick="mostrarTodos()">
+            📍 Todos
+        </button>
+
+    </div>
+
+
+    <!-- MAPA -->
+
+    <section class="mapa">
+
+        <h2>
+            🗺️ Mapa
+        </h2>
+
+        <div id="mapa-real"></div>
+
+    </section>
+
+
+    <!-- LOCAIS -->
+
+    <section>
+
+        <h2>
+            📍 Locais próximos
+        </h2>
+
+        <p class="ordem-info">
+            📏 Use sua localização para encontrar locais reais próximos.
+        </p>
+
+        <div id="locais">
+
+            <!-- EXEMPLOS -->
+
+            <div
+                class="local combustivel"
+                data-nome="Posto ABC"
+                data-lat="-23.6650"
+                data-lng="-46.4600"
+                data-demo="true"
+            >
+
+                <h3>
+                    ⛽ Posto ABC
+                </h3>
+
+                <p>
+                    ⭐ <span class="nota">4,7</span>
+                    |
+                    📏 <span class="distancia">Exemplo</span>
+                </p>
+
+                <div class="precos">
+
+                    <p>
+                        ⛽ Gasolina:
+                        <strong>R$ 6,19</strong>
+                    </p>
+
+                    <p>
+                        🌱 Etanol:
+                        <strong>R$ 4,09</strong>
+                    </p>
+
+                    <p>
+                        🛢️ Diesel:
+                        <strong>R$ 6,49</strong>
+                    </p>
+
+                </div>
+
+                <small>
+                    🕐 Dados de demonstração
+                </small>
+
+                <div class="resumo-avaliacao">
+
+                    <h4>
+                        ⭐ Resumo das avaliações
+                    </h4>
+
+                    <p>
+                        ⛽ Qualidade:
+                        <strong>—</strong>
+                    </p>
+
+                    <p>
+                        👥 Atendimento:
+                        <strong>—</strong>
+                    </p>
+
+                    <p>
+                        🧹 Limpeza:
+                        <strong>—</strong>
+                    </p>
+
+                    <p>
+                        💰 Preço:
+                        <strong>—</strong>
+                    </p>
+
+                    <p class="comentario-usuario">
+                        💬 Ainda não há comentários.
+                    </p>
+
+                </div>
+
+                <button
+                    class="ver-mapa"
+                    onclick="mostrarNoMapa('Posto ABC')"
+                >
+                    📍 Ver no mapa
+                </button>
+
+                <button
+                    class="avaliar"
+                    onclick="abrirAvaliacao('Posto ABC')"
+                >
+                    ⭐ Avaliar este local
+                </button>
+
+            </div>
+
+
+            <div
+                class="local combustivel"
+                data-nome="Posto Central"
+                data-lat="-23.6710"
+                data-lng="-46.4550"
+                data-demo="true"
+            >
+
+                <h3>
+                    ⛽ Posto Central
+                </h3>
+
+                <p>
+                    ⭐ <span class="nota">4,5</span>
+                    |
+                    📏 <span class="distancia">Exemplo</span>
+                </p>
+
+                <div class="precos">
+
+                    <p>
+                        ⛽ Gasolina:
+                        <strong>R$ 6,29</strong>
+                    </p>
+
+                    <p>
+                        🌱 Etanol:
+                        <strong>R$ 4,19</strong>
+                    </p>
+
+                    <p>
+                        🛢️ Diesel:
+                        <strong>R$ 6,59</strong>
+                    </p>
+
+                </div>
+
+                <small>
+                    🕐 Dados de demonstração
+                </small>
+
+                <div class="resumo-avaliacao">
+
+                    <h4>
+                        ⭐ Resumo das avaliações
+                    </h4>
+
+                    <p>
+                        ⛽ Qualidade:
+                        <strong>—</strong>
+                    </p>
+
+                    <p>
+                        👥 Atendimento:
+                        <strong>—</strong>
+                    </p>
+
+                    <p>
+                        🧹 Limpeza:
+                        <strong>—</strong>
+                    </p>
+
+                    <p>
+                        💰 Preço:
+                        <strong>—</strong>
+                    </p>
+
+                    <p class="comentario-usuario">
+                        💬 Ainda não há comentários.
+                    </p>
+
+                </div>
+
+                <button
+                    class="ver-mapa"
+                    onclick="mostrarNoMapa('Posto Central')"
+                >
+                    📍 Ver no mapa
+                </button>
+
+                <button
+                    class="avaliar"
+                    onclick="abrirAvaliacao('Posto Central')"
+                >
+                    ⭐ Avaliar este local
+                </button>
+
+            </div>
+
+
+            <div
+                class="local recarga"
+                data-nome="Estação Elétrica XYZ"
+                data-lat="-23.6630"
+                data-lng="-46.4680"
+                data-demo="true"
+            >
+
+                <h3>
+                    ⚡ Estação Elétrica XYZ
+                </h3>
+
+                <p>
+                    ⭐ <span class="nota">4,6</span>
+                    |
+                    📏 <span class="distancia">Exemplo</span>
+                </p>
+
+                <div class="precos">
+
+                    <p>
+                        ⚡ Recarga elétrica:
+                        <strong>R$ 2,50/kWh</strong>
+                    </p>
+
+                </div>
+
+                <p>
+                    🔋 Carregador:
+                    <strong>Disponível</strong>
+                </p>
+
+                <small>
+                    🕐 Dados de demonstração
+                </small>
+
+                <div class="resumo-avaliacao">
+
+                    <h4>
+                        ⭐ Resumo das avaliações
+                    </h4>
+
+                    <p>
+                        ⭐ Avaliação:
+                        <strong>4,6</strong>
+                    </p>
+
+                    <p class="comentario-usuario">
+                        💬 Ainda não há comentários.
+                    </p>
+
+                </div>
+
+                <button
+                    class="ver-mapa"
+                    onclick="mostrarNoMapa('Estação Elétrica XYZ')"
+                >
+                    📍 Ver no mapa
+                </button>
+
+                <button
+                    class="avaliar"
+                    onclick="abrirAvaliacao('Estação Elétrica XYZ')"
+                >
+                    ⭐ Avaliar este local
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ATUALIZAÇÃO -->
+
+    <button
+        class="atualizar"
+        onclick="abrirFormulario()"
+    >
+        ➕ Atualizar informação
+    </button>
+
+
+    <div
+        id="formulario"
+        class="formulario"
+    >
+
+        <h2>
+            📝 Atualizar informação
+        </h2>
+
+        <label>
+            Tipo de local:
+        </label>
+
+        <select
+            id="tipo"
+            onchange="atualizarTiposPreco()"
+        >
+
+            <option value="combustivel">
+                ⛽ Posto de combustível
+            </option>
+
+            <option value="recarga">
+                ⚡ Recarga elétrica
+            </option>
+
+        </select>
+
+
+        <label>
+            Tipo de combustível:
+        </label>
+
+        <select id="tipoCombustivel">
+
+            <option value="Gasolina">
+                ⛽ Gasolina
+            </option>
+
+            <option value="Etanol">
+                🌱 Etanol
+            </option>
+
+            <option value="Diesel">
+                🛢️ Diesel
+            </option>
+
+            <option value="GNV">
+                🔵 GNV
+            </option>
+
+        </select>
+
+
+        <label>
+            Nome do local:
+        </label>
+
+        <input
+            type="text"
+            id="nomeLocal"
+            placeholder="Ex: Posto ABC"
+        >
+
+
+        <label>
+            Preço:
+        </label>
+
+        <input
+            type="number"
+            id="preco"
+            placeholder="Ex: 6.19"
+            step="0.01"
+            min="0"
+        >
+
+
+        <button onclick="salvarInformacao()">
+            💾 Salvar
+        </button>
+
+        <button
+            class="cancelar"
+            onclick="fecharFormulario()"
+        >
+            Cancelar
+        </button>
+
+        <p id="mensagem"></p>
+
+    </div>
+
+
+    <!-- AVALIAÇÃO -->
+
+    <div
+        id="avaliacao"
+        class="formulario avaliacao-form"
+    >
+
+        <h2>
+            ⭐ Avaliar local
+        </h2>
+
+        <p>
+            Você está avaliando:
+        </p>
+
+        <h3 id="localAvaliacao">
+            -
+        </h3>
+
+
+        <label>
+            ⭐ Nota geral:
+        </label>
+
+        <select id="notaGeral">
+
+            <option value="5">⭐⭐⭐⭐⭐ 5 - Excelente</option>
+            <option value="4">⭐⭐⭐⭐ 4 - Muito bom</option>
+            <option value="3">⭐⭐⭐ 3 - Bom</option>
+            <option value="2">⭐⭐ 2 - Regular</option>
+            <option value="1">⭐ 1 - Ruim</option>
+
+        </select>
+
+
+        <label>
+            ⛽ Qualidade do combustível:
+        </label>
+
+        <select id="qualidade">
+
+            <option value="5">⭐⭐⭐⭐⭐ 5</option>
+            <option value="4">⭐⭐⭐⭐ 4</option>
+            <option value="3">⭐⭐⭐ 3</option>
+            <option value="2">⭐⭐ 2</option>
+            <option value="1">⭐ 1</option>
+
+        </select>
+
+
+        <label>
+            👥 Atendimento:
+        </label>
+
+        <select id="atendimento">
+
+            <option value="5">⭐⭐⭐⭐⭐ 5</option>
+            <option value="4">⭐⭐⭐⭐ 4</option>
+            <option value="3">⭐⭐⭐ 3</option>
+            <option value="2">⭐⭐ 2</option>
+            <option value="1">⭐ 1</option>
+
+        </select>
+
+
+        <label>
+            🧹 Limpeza:
+        </label>
+
+        <select id="limpeza">
+
+            <option value="5">⭐⭐⭐⭐⭐ 5</option>
+            <option value="4">⭐⭐⭐⭐ 4</option>
+            <option value="3">⭐⭐⭐ 3</option>
+            <option value="2">⭐⭐ 2</option>
+            <option value="1">⭐ 1</option>
+
+        </select>
+
+
+        <label>
+            💰 Confiabilidade do preço:
+        </label>
+
+        <select id="confiabilidade">
+
+            <option value="5">⭐⭐⭐⭐⭐ 5</option>
+            <option value="4">⭐⭐⭐⭐ 4</option>
+            <option value="3">⭐⭐⭐ 3</option>
+            <option value="2">⭐⭐ 2</option>
+            <option value="1">⭐ 1</option>
+
+        </select>
+
+
+        <label>
+            💬 Comentário:
+        </label>
+
+        <textarea
+            id="comentario"
+            placeholder="Conte como foi sua experiência..."
+        ></textarea>
+
+
+        <button onclick="salvarAvaliacao()">
+            ⭐ Enviar avaliação
+        </button>
+
+        <button
+            class="cancelar"
+            onclick="fecharAvaliacao()"
+        >
+            Cancelar
+        </button>
+
+        <p id="mensagemAvaliacao"></p>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <p>
+        G4 Auto Car — Projeto de Extensão
+    </p>
+
+</footer>
+
+
+<script
+    src="https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.js"
+></script>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>12:43 02/10/2026
